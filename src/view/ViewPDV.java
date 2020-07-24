@@ -419,7 +419,7 @@ public class ViewPDV extends javax.swing.JFrame {
                 this.jTitleProdutoPDV.setText("CAIXA OCUPADO");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Insira produto(s) para finalizar a venda", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Insira produto(s) para inicializar a venda", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jMenuFinalizarActionPerformed
 

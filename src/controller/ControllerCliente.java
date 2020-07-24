@@ -65,4 +65,8 @@ public class ControllerCliente {
     public boolean excluirClienteController(int pId){
         return this.daoCliente.excluirClienteDAO(pId);
     }
+
+    public boolean getRelatorioCliente() {
+         return this.daoCliente.getRelatorioCliente();
+    }
 }

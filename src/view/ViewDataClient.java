@@ -39,9 +39,9 @@ public class ViewDataClient extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tbDataClient = new javax.swing.JTable();
-        txtSearchDataClient = new javax.swing.JTextField();
         btnSearchDataClient = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        txtSearchDataClient = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("VPSoft - Clientes");
@@ -106,23 +106,27 @@ public class ViewDataClient extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Pesquisar:");
+        jButton1.setText("PDF");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1014, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtSearchDataClient, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSearchDataClient)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1014, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 1, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtSearchDataClient, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSearchDataClient)
-                .addGap(112, 112, 112))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,9 +134,9 @@ public class ViewDataClient extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
                     .addComponent(btnSearchDataClient)
-                    .addComponent(txtSearchDataClient))
+                    .addComponent(txtSearchDataClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addContainerGap())
         );
 
@@ -148,6 +152,11 @@ public class ViewDataClient extends javax.swing.JFrame {
 
         classificador.setRowFilter(RowFilter.regexFilter(texto, 1));
     }//GEN-LAST:event_btnSearchDataClientActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.controllerCliente.getRelatorioCliente();
+    }//GEN-LAST:event_jButton1ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -194,11 +203,11 @@ public class ViewDataClient extends javax.swing.JFrame {
             modelo.addRow(new Object[]{
                 this.listaModelCliente.get(i).getId(),
                 this.listaModelCliente.get(i).getName(),
-                this.listaModelCliente.get(i).getEndereco(),
-                this.listaModelCliente.get(i).getBairro(),
-                this.listaModelCliente.get(i).getCidade(),
+                this.listaModelCliente.get(i).getEndereco().toUpperCase(),
+                this.listaModelCliente.get(i).getBairro().toUpperCase(),
+                this.listaModelCliente.get(i).getCidade().toUpperCase(),
                 this.listaModelCliente.get(i).getCep(),
-                this.listaModelCliente.get(i).getUf(),
+                this.listaModelCliente.get(i).getUf().toUpperCase(),
                 this.listaModelCliente.get(i).getFone()
             });
         }
@@ -207,7 +216,7 @@ public class ViewDataClient extends javax.swing.JFrame {
      
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSearchDataClient;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbDataClient;
     private javax.swing.JTextField txtSearchDataClient;

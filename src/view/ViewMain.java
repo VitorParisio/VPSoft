@@ -117,9 +117,9 @@ public class ViewMain extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnUsuarioMain)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnVendaMain)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnVendaMain)
                 .addContainerGap(305, Short.MAX_VALUE))
         );
 
@@ -176,7 +176,7 @@ public class ViewMain extends javax.swing.JFrame {
         jMenu3.setForeground(new java.awt.Color(102, 102, 255));
         jMenu3.setText("VENDA");
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.SHIFT_MASK));
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_5, java.awt.event.InputEvent.SHIFT_MASK));
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/cash16.png"))); // NOI18N
         jMenuItem1.setText("PDV");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -186,7 +186,7 @@ public class ViewMain extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem1);
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_5, java.awt.event.InputEvent.SHIFT_MASK));
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.SHIFT_MASK));
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/sell16.png"))); // NOI18N
         jMenuItem2.setText("Vender");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
