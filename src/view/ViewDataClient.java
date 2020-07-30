@@ -41,7 +41,7 @@ public class ViewDataClient extends javax.swing.JFrame {
         tbDataClient = new javax.swing.JTable();
         btnSearchDataClient = new javax.swing.JButton();
         txtSearchDataClient = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        clientPDF = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("VPSoft - Clientes");
@@ -106,10 +106,11 @@ public class ViewDataClient extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("PDF");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        clientPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pdf20.png"))); // NOI18N
+        clientPDF.setText("PDF");
+        clientPDF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                clientPDFActionPerformed(evt);
             }
         });
 
@@ -124,7 +125,7 @@ public class ViewDataClient extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSearchDataClient)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addComponent(clientPDF))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1014, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 1, Short.MAX_VALUE))
         );
@@ -133,10 +134,11 @@ public class ViewDataClient extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSearchDataClient)
-                    .addComponent(txtSearchDataClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtSearchDataClient)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnSearchDataClient)
+                        .addComponent(clientPDF)))
                 .addContainerGap())
         );
 
@@ -153,10 +155,10 @@ public class ViewDataClient extends javax.swing.JFrame {
         classificador.setRowFilter(RowFilter.regexFilter(texto, 1));
     }//GEN-LAST:event_btnSearchDataClientActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void clientPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clientPDFActionPerformed
         // TODO add your handling code here:
         this.controllerCliente.getRelatorioCliente();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_clientPDFActionPerformed
     
     /**
      * @param args the command line arguments
@@ -216,7 +218,7 @@ public class ViewDataClient extends javax.swing.JFrame {
      
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSearchDataClient;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton clientPDF;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbDataClient;
     private javax.swing.JTextField txtSearchDataClient;

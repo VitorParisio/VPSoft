@@ -56,4 +56,8 @@ public class ControllerVenda {
     public boolean excluirVendaController(int pId){
         return this.daoVenda.excluirVendaDAO(pId);
     }
+
+    public boolean gerarRelatorioVenda() {
+       return this.daoVenda.getRelatorioVendaDAO();
+    }
 }

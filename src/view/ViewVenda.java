@@ -71,6 +71,7 @@ public class ViewVenda extends javax.swing.JFrame {
         this.carregarVendas();
         this.preencherCodClienteComboBox();
         this.preencherCodProdComboBox();
+        this.somaValorTotalConsulta();
     }
 
     /**
@@ -98,7 +99,6 @@ public class ViewVenda extends javax.swing.JFrame {
         tbVendaProduto = new javax.swing.JTable();
         btnNovo = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
-        txtTotalVenda = new javax.swing.JTextField();
         txtDescontoVenda = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -106,6 +106,7 @@ public class ViewVenda extends javax.swing.JFrame {
         txtDelProd = new javax.swing.JButton();
         cbNomeProduto = new componentes.UJComboBox();
         cbNomeCliente = new componentes.UJComboBox();
+        txtTotalVenda = new javax.swing.JFormattedTextField();
         jPanelConsulta = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         txtSearchVenda = new javax.swing.JTextField();
@@ -114,6 +115,9 @@ public class ViewVenda extends javax.swing.JFrame {
         tbVenda = new javax.swing.JTable();
         btnExcluirVenda = new javax.swing.JButton();
         btnEditarVenda = new javax.swing.JButton();
+        vendaPDF = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        txtTotalConsulta = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("VPSoft - Venda");
@@ -215,10 +219,6 @@ public class ViewVenda extends javax.swing.JFrame {
             }
         });
 
-        txtTotalVenda.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txtTotalVenda.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtTotalVenda.setEnabled(false);
-
         txtDescontoVenda.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtDescontoVenda.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtDescontoVenda.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -268,6 +268,11 @@ public class ViewVenda extends javax.swing.JFrame {
             }
         });
 
+        txtTotalVenda.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        txtTotalVenda.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtTotalVenda.setEnabled(false);
+        txtTotalVenda.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+
         javax.swing.GroupLayout jPanelCadastroLayout = new javax.swing.GroupLayout(jPanelCadastro);
         jPanelCadastro.setLayout(jPanelCadastroLayout);
         jPanelCadastroLayout.setHorizontalGroup(
@@ -308,9 +313,11 @@ public class ViewVenda extends javax.swing.JFrame {
                             .addComponent(txtDescontoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(txtTotalVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanelCadastroLayout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(77, 77, 77))
+                            .addComponent(txtTotalVenda))))
                 .addContainerGap())
         );
         jPanelCadastroLayout.setVerticalGroup(
@@ -344,11 +351,11 @@ public class ViewVenda extends javax.swing.JFrame {
                 .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel7))
-                .addGap(9, 9, 9)
-                .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtTotalVenda, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                    .addComponent(txtDescontoVenda))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtDescontoVenda, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                    .addComponent(txtTotalVenda))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNovo)
                     .addComponent(btnSalvar)
@@ -418,6 +425,22 @@ public class ViewVenda extends javax.swing.JFrame {
             }
         });
 
+        vendaPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pdf20.png"))); // NOI18N
+        vendaPDF.setText("Relatório");
+        vendaPDF.setToolTipText("");
+        vendaPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vendaPDFActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel10.setText("TOTAL:");
+
+        txtTotalConsulta.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txtTotalConsulta.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtTotalConsulta.setEnabled(false);
+
         javax.swing.GroupLayout jPanelConsultaLayout = new javax.swing.GroupLayout(jPanelConsulta);
         jPanelConsulta.setLayout(jPanelConsultaLayout);
         jPanelConsultaLayout.setHorizontalGroup(
@@ -425,21 +448,28 @@ public class ViewVenda extends javax.swing.JFrame {
             .addGroup(jPanelConsultaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelConsultaLayout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
-                        .addContainerGap())
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
                     .addGroup(jPanelConsultaLayout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtSearchVenda)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSearchVenda)
-                        .addGap(18, 18, 18))
+                        .addComponent(btnSearchVenda))
                     .addGroup(jPanelConsultaLayout.createSequentialGroup()
                         .addComponent(btnExcluirVenda)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEditarVenda)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(vendaPDF)
+                        .addGap(97, 97, 97))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelConsultaLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTotalConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelConsultaLayout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addGap(53, 53, 53)))))
+                .addContainerGap())
         );
         jPanelConsultaLayout.setVerticalGroup(
             jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -450,11 +480,17 @@ public class ViewVenda extends javax.swing.JFrame {
                     .addComponent(txtSearchVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSearchVenda))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtTotalConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnExcluirVenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnEditarVenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnEditarVenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(vendaPDF)))
                 .addContainerGap())
         );
 
@@ -544,6 +580,7 @@ public class ViewVenda extends javax.swing.JFrame {
 //                JOptionPane.showMessageDialog(this, "Produtos adicionado na venda com sucesso!", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
                 this.carregarVendas();
                 this.limparCampos();
+                this.somaValorTotalConsulta();
                 this.controllerProduto.alterarEstoqueProdutoController(this.listaModelProduto);
             } else {
                 JOptionPane.showMessageDialog(this, "Erro ao adicionar produtos na venda!", "ERRO", JOptionPane.ERROR_MESSAGE);
@@ -599,6 +636,7 @@ public class ViewVenda extends javax.swing.JFrame {
 //                JOptionPane.showMessageDialog(this, "Produtos da venda salvos com sucesso!", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
                 this.carregarVendas();
                 this.limparCampos();
+                this.somaValorTotalConsulta();
             } else {
                 JOptionPane.showMessageDialog(this, "Erro ao salvar os produtodos da venda!", "ERRO", JOptionPane.ERROR_MESSAGE);
             }
@@ -628,6 +666,7 @@ public class ViewVenda extends javax.swing.JFrame {
                     if (this.controllerVenda.excluirVendaController(codVenda)) {
                         JOptionPane.showMessageDialog(this, "Venda excluida com sucesso!", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
                         this.carregarVendas();
+                        this.somaValorTotalConsulta();
                     } else {
                         JOptionPane.showMessageDialog(this, "Erro ao excluir a venda!", "ERRO", JOptionPane.ERROR_MESSAGE);
                     }
@@ -673,8 +712,7 @@ public class ViewVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddProdActionPerformed
 
     private void txtDescontoVendaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDescontoVendaFocusLost
-        // TODO add your handling code here:
-        this.somarValorTotalProdutos();
+        this.somarValorTotalProdutos();        
     }//GEN-LAST:event_txtDescontoVendaFocusLost
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
@@ -763,6 +801,11 @@ public class ViewVenda extends javax.swing.JFrame {
         this.txtTotalVenda.requestFocus();
     }//GEN-LAST:event_txtDescontoVendaActionPerformed
 
+    private void vendaPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vendaPDFActionPerformed
+        // TODO add your handling code here:
+        this.controllerVenda.gerarRelatorioVenda();
+    }//GEN-LAST:event_vendaPDFActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -825,7 +868,7 @@ public class ViewVenda extends javax.swing.JFrame {
     }
 
     private void listarClientes() {
-        this.listaModelCliente = controllerCliente.getListaClienteController();
+        this.listaModelCliente = this.controllerCliente.getListaClienteController();
         this.cbNomeCliente.removeAllItems();
 
         for (int i = 0; i < this.listaModelCliente.size(); i++) {
@@ -860,6 +903,7 @@ public class ViewVenda extends javax.swing.JFrame {
             this.txtTotalVenda.setText(String.valueOf(soma).format("%.2f", soma));
         
         this.aplicarDesconto();
+        this.somaValorTotalConsulta();
     }
     
     private void somaValorTotalDesconto(){
@@ -867,8 +911,21 @@ public class ViewVenda extends javax.swing.JFrame {
         int linha = this.tbVenda.getSelectedRow();
         total = (double) this.tbVenda.getValueAt(linha, 4);
         desconto = (double) this.tbVenda.getValueAt(linha, 3);
+        
         this.txtTotalVenda.setText(String.valueOf(total).format("%.2f", total));
         this.txtDescontoVenda.setText(String.valueOf(desconto).format("%.2f", desconto));
+        
+    }
+    
+    private void somaValorTotalConsulta(){
+         double soma = 0, valor;
+        int cont = this.tbVenda.getRowCount();
+        
+            for (int i = 0; i < cont; i++) {
+                valor = (double) this.tbVenda.getValueAt(i, 4);
+                soma = soma + valor;
+            }
+            this.txtTotalConsulta.setText(String.valueOf(soma).format("%.2f", soma));
         
     }
 
@@ -909,6 +966,7 @@ public class ViewVenda extends javax.swing.JFrame {
     private componentes.UJComboBox cbNomeCliente;
     private componentes.UJComboBox cbNomeProduto;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -931,6 +989,8 @@ public class ViewVenda extends javax.swing.JFrame {
     private javax.swing.JTextField txtNumVenda;
     private javax.swing.JTextField txtQtdProd;
     private javax.swing.JTextField txtSearchVenda;
-    private javax.swing.JTextField txtTotalVenda;
+    private javax.swing.JTextField txtTotalConsulta;
+    private javax.swing.JFormattedTextField txtTotalVenda;
+    private javax.swing.JButton vendaPDF;
     // End of variables declaration//GEN-END:variables
 }

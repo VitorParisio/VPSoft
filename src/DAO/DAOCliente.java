@@ -261,7 +261,7 @@ public class DAOCliente extends Conexao {
                     + "client;"
             );
             JRResultSetDataSource JrRs = new JRResultSetDataSource(getResultSet());
-            InputStream caminhoRelatorio = this.getClass().getClassLoader().getResourceAsStream("relatorio/Cnfiscal.jasper");
+            InputStream caminhoRelatorio = this.getClass().getClassLoader().getResourceAsStream("relcliente/Cnfiscal.jasper");
             JasperPrint jasperPrint = JasperFillManager.fillReport(caminhoRelatorio, new HashMap(), JrRs);
             JasperExportManager.exportReportToPdfFile(jasperPrint, "C:/Users/Vitor/Documents/NetBeansProjects/VPSoft/rel/relCliente.pdf");
             File file = new File("C:/Users/Vitor/Documents/NetBeansProjects/VPSoft/rel/relCliente.pdf");

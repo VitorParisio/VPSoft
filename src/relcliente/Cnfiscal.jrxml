@@ -39,26 +39,26 @@ FROM
 	<title>
 		<band height="123" splitType="Stretch">
 			<staticText>
-				<reportElement style="Título" x="226" y="-12" width="153" height="38" uuid="44489cab-f61e-4d8a-9f2f-96dbc7fd73ad"/>
-				<textElement>
+				<reportElement style="Título" x="0" y="0" width="554" height="38" uuid="44489cab-f61e-4d8a-9f2f-96dbc7fd73ad"/>
+				<textElement textAlignment="Center">
 					<font size="32" isBold="true"/>
 				</textElement>
 				<text><![CDATA[VP-Soft]]></text>
 			</staticText>
 			<image>
-				<reportElement x="454" y="0" width="80" height="79" uuid="9b1108e9-bf03-4dfe-b43b-df4c7c5ed0b9"/>
+				<reportElement x="454" y="-12" width="80" height="79" uuid="9b1108e9-bf03-4dfe-b43b-df4c7c5ed0b9"/>
 				<imageExpression><![CDATA["C:\\Users\\Vitor\\Desktop\\duke.jpg"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="226" y="26" width="131" height="20" uuid="7e8eff96-ee9c-4018-ae1b-e8b1733817e0"/>
-				<textElement>
+				<reportElement x="0" y="38" width="555" height="20" uuid="7e8eff96-ee9c-4018-ae1b-e8b1733817e0"/>
+				<textElement textAlignment="Center">
 					<font fontName="Arial" size="14"/>
 				</textElement>
 				<text><![CDATA[Sistema de vendas ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="193" y="85" width="196" height="20" uuid="e324b4e6-fd7f-46b3-93e5-9b6d34fb5326"/>
-				<textElement>
+				<reportElement x="0" y="85" width="554" height="20" uuid="e324b4e6-fd7f-46b3-93e5-9b6d34fb5326"/>
+				<textElement textAlignment="Center">
 					<font fontName="Arial" size="15" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[RELATÓRIO DE CLIENTES]]></text>
@@ -71,18 +71,21 @@ FROM
 				<reportElement x="0" y="0" width="555" height="20" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="e23a01c6-7e4a-46e4-9629-a8476ead3b1f"/>
 			</rectangle>
 			<staticText>
-				<reportElement style="Coluna" x="53" y="0" width="255" height="20" uuid="1d7e0571-1f9b-4fea-838b-e2aef472222c"/>
+				<reportElement style="Coluna" x="53" y="2" width="255" height="18" uuid="1d7e0571-1f9b-4fea-838b-e2aef472222c"/>
+				<textElement textAlignment="Center"/>
 				<text><![CDATA[Cliente]]></text>
 			</staticText>
 			<line>
 				<reportElement x="0" y="0" width="555" height="1" uuid="458ed7b6-d198-40c2-8e0c-18e52c63f3d6"/>
 			</line>
 			<staticText>
-				<reportElement style="Coluna" x="0" y="0" width="53" height="20" uuid="7f296b7f-7cc4-4641-b1fe-3faf6df6d8a7"/>
+				<reportElement style="Coluna" x="0" y="2" width="53" height="18" uuid="7f296b7f-7cc4-4641-b1fe-3faf6df6d8a7"/>
+				<textElement textAlignment="Center"/>
 				<text><![CDATA[Código]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Coluna" x="308" y="1" width="226" height="19" uuid="48d04023-d10b-4ba6-9fac-e6c27a00b570"/>
+				<reportElement style="Coluna" x="308" y="2" width="226" height="18" uuid="48d04023-d10b-4ba6-9fac-e6c27a00b570"/>
+				<textElement textAlignment="Center"/>
 				<text><![CDATA[Telefone]]></text>
 			</staticText>
 		</band>
@@ -98,10 +101,16 @@ FROM
 			</textField>
 			<textField>
 				<reportElement x="0" y="0" width="53" height="16" uuid="d33414c9-4f8e-43f4-8379-3bf4cf167215"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{client_id}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="308" y="1" width="226" height="16" uuid="883ab758-c40a-4a48-80a9-9ed14963db02"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{client_fone}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -109,7 +118,7 @@ FROM
 	<pageFooter>
 		<band height="16" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="0" width="555" height="16" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="9bbd42b2-a845-4df2-b40c-9cb68ca4bada"/>
+				<reportElement x="-1" y="0" width="555" height="15" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="9bbd42b2-a845-4df2-b40c-9cb68ca4bada"/>
 			</rectangle>
 			<textField pattern="EEEEE dd MMMMM yyyy">
 				<reportElement style="Detalhes" x="0" y="0" width="179" height="15" uuid="88f30a08-d2c8-429b-abc8-47382623f92d"/>

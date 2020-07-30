@@ -11,6 +11,7 @@ import controller.ProdutoController;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.ModelProduto;
@@ -27,6 +28,7 @@ import util.BLDatas;
 public class ViewPDV extends javax.swing.JFrame {
 
     private ViewPagamentoPDV viewPagamentoPDV;
+
     int qtd;
     ModelProduto modelProduto = new ModelProduto();
     ProdutoController controllerProduto = new ProdutoController();
@@ -53,6 +55,9 @@ public class ViewPDV extends javax.swing.JFrame {
         this.viewPagamentoPDV = new ViewPagamentoPDV(this, true);
         this.jTitleProdutoPDV.setText("CAIXA FECHADO");
         this.txtBarraCod.setEnabled(false);
+        this.cbProdutoSearch.setVisible(false);
+        this.carregarProdutosPesquisa();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.limparCampo();
     }
 
@@ -81,6 +86,7 @@ public class ViewPDV extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jOpPDV = new javax.swing.JLabel();
+        cbProdutoSearch = new componentes.UJComboBox();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbPDV = new javax.swing.JTable();
@@ -229,10 +235,17 @@ public class ViewPDV extends javax.swing.JFrame {
         jOpPDV.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jOpPDV.setText("jLabel4");
 
+        cbProdutoSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cbProdutoSearchKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,8 +256,10 @@ public class ViewPDV extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(cbProdutoSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,6 +274,8 @@ public class ViewPDV extends javax.swing.JFrame {
                     .addComponent(jOpPDV))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbProdutoSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -307,11 +324,11 @@ public class ViewPDV extends javax.swing.JFrame {
             tbPDV.getColumnModel().getColumn(2).setPreferredWidth(300);
         }
 
-        txtBarraCod.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtBarraCod.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtBarraCod.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtBarraCod.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtBarraCodKeyReleased(evt);
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBarraCodKeyPressed(evt);
             }
         });
 
@@ -340,6 +357,11 @@ public class ViewPDV extends javax.swing.JFrame {
 
         jPesquisarPDV.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
         jPesquisarPDV.setText("Pesquisar");
+        jPesquisarPDV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPesquisarPDVActionPerformed(evt);
+            }
+        });
         jMenu1.add(jPesquisarPDV);
 
         jMenuFinalizar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
@@ -377,7 +399,7 @@ public class ViewPDV extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 669, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 810, Short.MAX_VALUE)
                     .addComponent(txtBarraCod))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -395,9 +417,9 @@ public class ViewPDV extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtBarraCod, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtBarraCod, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -458,14 +480,24 @@ public class ViewPDV extends javax.swing.JFrame {
         this.txtBarraCod.requestFocus();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void txtBarraCodKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBarraCodKeyReleased
-        // TODO add your handling code here:
-        this.inserirProduto(evt);
-    }//GEN-LAST:event_txtBarraCodKeyReleased
-
     private void jValorTotalPDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jValorTotalPDVActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jValorTotalPDVActionPerformed
+
+    private void jPesquisarPDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPesquisarPDVActionPerformed
+        // TODO add your handling code here:
+        this.cbProdutoSearch.setVisible(true);
+    }//GEN-LAST:event_jPesquisarPDVActionPerformed
+
+    private void cbProdutoSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbProdutoSearchKeyReleased
+        // TODO add your handling code here:
+        this.inserirProdutoNome(evt);
+    }//GEN-LAST:event_cbProdutoSearchKeyReleased
+
+    private void txtBarraCodKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBarraCodKeyPressed
+        // TODO add your handling code here:
+        this.inserirProduto(evt);
+    }//GEN-LAST:event_txtBarraCodKeyPressed
 
     private void salvarVenda() {
         int cont, codProduto = 0, codVenda = 0;
@@ -480,7 +512,6 @@ public class ViewPDV extends javax.swing.JFrame {
         this.modelVenda.setTotal(Double.parseDouble(this.txtSubTotalPDV.getText().replaceAll(",", ".")));
         this.modelVenda.setVenDesconto(Double.parseDouble(String.valueOf(this.viewPagamentoPDV.getDesconto()).replaceAll(",", ".")));
         this.modelVenda.setValor(Double.parseDouble(String.valueOf(this.viewPagamentoPDV.getValorTotal()).replaceAll(",", ".")));
-
         cont = this.tbPDV.getRowCount();
         codVenda = this.controllerVenda.salvarVendaController(this.modelVenda);
         for (int i = 0; i < cont; i++) {
@@ -534,6 +565,30 @@ public class ViewPDV extends javax.swing.JFrame {
         }
     }
 
+    public void inserirProdutoNome(java.awt.event.KeyEvent evt) {
+        DefaultTableModel modelo = (DefaultTableModel) this.tbPDV.getModel();
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            try {
+                this.modelProduto = this.controllerProduto.retornaProdutoControllerString(this.cbProdutoSearch.getSelectedItem().toString());
+                this.jTitleProdutoPDV.setText(this.modelProduto.getName());
+                qtd = Integer.parseInt(JOptionPane.showInputDialog("Informe a quantidade.", 1));
+                modelo.addRow(new Object[]{
+                    modelo.getRowCount() + 1,
+                    this.modelProduto.getId(),
+                    this.modelProduto.getName(),
+                    qtd,
+                    this.modelProduto.getPrice(),
+                    qtd * this.modelProduto.getPrice()
+                });
+                this.jValorUniPDV.setText(String.valueOf(this.modelProduto.getPrice()).format("%.2f", this.modelProduto.getPrice()));
+                this.jQtdPDV.setText(String.valueOf(qtd));
+                this.txtSubTotalPDV.setText(String.valueOf(this.somarValorTotal()).format("%.2f", this.somarValorTotal()));
+                this.cbProdutoSearch.setVisible(false);
+            } catch (Exception ex) {
+            }
+        }
+    }
+
     private float somarValorTotal() {
         float soma = 0, valor = 0;
         int cont = this.tbPDV.getRowCount();
@@ -550,8 +605,18 @@ public class ViewPDV extends javax.swing.JFrame {
         this.jQtdPDV.setText("");
         this.txtSubTotalPDV.setText("");
         this.jValorTotalPDV.setText("");
+        this.txtBarraCod.setText("");
         DefaultTableModel modelo = (DefaultTableModel) this.tbPDV.getModel();
         modelo.setRowCount(0);
+    }
+
+    private void carregarProdutosPesquisa() {
+        this.listaModelProduto = this.controllerProduto.retornaListaProdutoController();
+        this.cbProdutoSearch.removeAllItems();
+
+        for (int i = 0; i < this.listaModelProduto.size(); i++) {
+            this.cbProdutoSearch.addItem(this.listaModelProduto.get(i).getName());
+        }
     }
 
     /**
@@ -594,6 +659,7 @@ public class ViewPDV extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private componentes.UJComboBox cbProdutoSearch;
     private javax.swing.JMenuItem jExcluirPDV;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

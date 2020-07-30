@@ -2,7 +2,16 @@ package DAO;
 
 import model.ModelVenda;
 import conexoes.Conexao;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 
 /**
  *
@@ -168,6 +177,44 @@ public class DAOVenda extends Conexao {
                     + "id = '" + pId + "'"
                     + ";"
             );
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            this.fecharConexao();
+        }
+    }
+
+    public boolean getRelatorioVendaDAO() {
+        try {
+            this.conectar();
+            this.executarSQL(
+                    "SELECT"
+                    + " produto.id AS produto_id,"
+                    + " produto.name AS produto_name,"
+                    + " venda.valor AS venda_valor,"
+                    + " venda.total AS venda_total,"
+                    + " venda.ven_desconto AS venda_ven_desconto,"
+                    + " venda_produto.ven_pro_valor AS venda_produto_ven_pro_valor,"
+                    + " venda_produto.ven_pro_qtd AS venda_produto_ven_pro_qtd"
+                    + " FROM"
+                    + " produto produto INNER JOIN venda_produto venda_produto ON produto.id = venda_produto.id_produto"
+                    + " INNER JOIN venda venda ON venda_produto.id_venda = venda.id;"
+            );
+            JRResultSetDataSource JrRs = new JRResultSetDataSource(getResultSet());
+            InputStream caminhoRelatorio = this.getClass().getClassLoader().getResourceAsStream("relvenda/relvenda.jasper");
+            JasperPrint jasperPrint = JasperFillManager.fillReport(caminhoRelatorio, new HashMap(), JrRs);
+            JasperExportManager.exportReportToPdfFile(jasperPrint, "C:/Users/Vitor/Documents/NetBeansProjects/VPSoft/rel/relvenda.pdf");
+            File file = new File("C:/Users/Vitor/Documents/NetBeansProjects/VPSoft/rel/relvenda.pdf");
+
+            try {
+                Desktop.getDesktop().open(file);
+            } catch (Exception e) {
+                JOptionPane.showConfirmDialog(null, e);
+            }
+            file.deleteOnExit();
+
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
