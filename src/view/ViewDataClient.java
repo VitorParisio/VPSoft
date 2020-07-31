@@ -7,11 +7,13 @@ package view;
 
 import controller.ControllerCliente;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import model.ModelCliente;
+import util.Loading;
 
 /**
  *
@@ -107,7 +109,7 @@ public class ViewDataClient extends javax.swing.JFrame {
         });
 
         clientPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pdf20.png"))); // NOI18N
-        clientPDF.setText("PDF");
+        clientPDF.setText("Relatório");
         clientPDF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 clientPDFActionPerformed(evt);
@@ -121,10 +123,10 @@ public class ViewDataClient extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtSearchDataClient, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtSearchDataClient)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSearchDataClient)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(31, 31, 31)
                         .addComponent(clientPDF))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1014, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 1, Short.MAX_VALUE))
@@ -135,10 +137,13 @@ public class ViewDataClient extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtSearchDataClient)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(btnSearchDataClient)
-                        .addComponent(clientPDF)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(clientPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSearchDataClient))
                 .addContainerGap())
         );
 
@@ -157,7 +162,21 @@ public class ViewDataClient extends javax.swing.JFrame {
 
     private void clientPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clientPDFActionPerformed
         // TODO add your handling code here:
-        this.controllerCliente.getRelatorioCliente();
+         final Loading loading = new Loading();
+        loading.setVisible(true);
+
+        Thread thread = new Thread() {
+            public void run() {
+                try {
+                    controllerCliente.getRelatorioCliente();
+                    loading.dispose();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Erro ao gerar relatório de clientes!", "ERRO", JOptionPane.ERROR_MESSAGE);
+                    loading.dispose();
+                }
+            }
+        };
+        thread.start();
     }//GEN-LAST:event_clientPDFActionPerformed
     
     /**

@@ -5,6 +5,7 @@
  */
 package view;
 
+import util.Loading;
 import controller.ControllerCliente;
 import controller.ControllerProdutoVendaProdutos;
 import controller.ControllerVenda;
@@ -26,7 +27,6 @@ import model.ModelVenda;
 import model.ModelVendaProduto;
 import model.ModelVendasCliente;
 import util.BLDatas;
-
 
 /**
  *
@@ -58,7 +58,6 @@ public class ViewVenda extends javax.swing.JFrame {
     ArrayList<ModelProdutoVendaProdutos> listaModelProdutoVendaProdutos = new ArrayList<>();
 
     BLDatas data = new BLDatas();
-   
 
     /**
      * Creates new form ViewVenda
@@ -109,7 +108,6 @@ public class ViewVenda extends javax.swing.JFrame {
         cbNomeCliente = new componentes.UJComboBox();
         txtTotalVenda = new javax.swing.JFormattedTextField();
         jPanelConsulta = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
         txtSearchVenda = new javax.swing.JTextField();
         btnSearchVenda = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -369,8 +367,6 @@ public class ViewVenda extends javax.swing.JFrame {
 
         jPanelVenda.addTab("Cadastro", jPanelCadastro);
 
-        jLabel8.setText("Pesquisar:");
-
         btnSearchVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/searcher.png"))); // NOI18N
         btnSearchVenda.setText("Pesquiar");
         btnSearchVenda.addActionListener(new java.awt.event.ActionListener() {
@@ -462,8 +458,6 @@ public class ViewVenda extends javax.swing.JFrame {
                 .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
                     .addGroup(jPanelConsultaLayout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtSearchVenda)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSearchVenda))
@@ -473,8 +467,8 @@ public class ViewVenda extends javax.swing.JFrame {
                         .addComponent(btnEditarVenda)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(vendaPDF)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnPedidosVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnPedidosVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelConsultaLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -488,12 +482,11 @@ public class ViewVenda extends javax.swing.JFrame {
             jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelConsultaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
+                .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSearchVenda)
                     .addComponent(txtSearchVenda))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -503,8 +496,8 @@ public class ViewVenda extends javax.swing.JFrame {
                     .addComponent(btnExcluirVenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnEditarVenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(vendaPDF)
-                        .addComponent(btnPedidosVenda)))
+                        .addComponent(btnPedidosVenda)
+                        .addComponent(vendaPDF)))
                 .addContainerGap())
         );
 
@@ -658,7 +651,7 @@ public class ViewVenda extends javax.swing.JFrame {
         this.btnSalvar.setEnabled(false);
         this.btnAddProd.setEnabled(false);
     }//GEN-LAST:event_btnSalvarActionPerformed
-    
+
     private void btnExcluirVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirVendaActionPerformed
         // TODO add your handling code here:
         int linha = this.tbVenda.getSelectedRow();
@@ -696,7 +689,7 @@ public class ViewVenda extends javax.swing.JFrame {
 
     private void btnAddProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProdActionPerformed
         // TODO add your handling code here:
-        
+
         if (this.txtQtdProd.getText().equals("") || this.cbNomeCliente.getSelectedItem() == null || this.cbNomeProduto.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(this, "Necessário preencher os campos para a venda.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
         } else {
@@ -726,7 +719,7 @@ public class ViewVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddProdActionPerformed
 
     private void txtDescontoVendaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDescontoVendaFocusLost
-        this.somarValorTotalProdutos();        
+        this.somarValorTotalProdutos();
     }//GEN-LAST:event_txtDescontoVendaFocusLost
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
@@ -743,7 +736,7 @@ public class ViewVenda extends javax.swing.JFrame {
         int linha = this.tbVenda.getSelectedRow();
         DefaultTableModel modelo = (DefaultTableModel) this.tbVendaProduto.getModel();
         modelo.setRowCount(0);
-         
+
         try {
             int codVenda = (int) this.tbVenda.getValueAt(linha, 0);
             this.listaModelProdutoVendaProdutos = this.controllerProdutoVendaProdutos.getListaProdutoVendaProdutoController(codVenda);
@@ -773,7 +766,7 @@ public class ViewVenda extends javax.swing.JFrame {
             int linha = this.tbVendaProduto.getSelectedRow();
             DefaultTableModel modelo = (DefaultTableModel) this.tbVendaProduto.getModel();
             modelo.removeRow(linha);
-            
+
             this.somarValorTotalProdutos();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Código inválido ou nenhum registro selecionado.", "ERRO", JOptionPane.ERROR_MESSAGE);
@@ -822,10 +815,24 @@ public class ViewVenda extends javax.swing.JFrame {
 
     private void btnPedidosVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidosVendaActionPerformed
         // TODO add your handling code here:
-        int linha = this.tbVenda.getSelectedRow();
-        int codPedido = (int) this.tbVenda.getValueAt(linha, 0);
-        
-        this.controllerVenda.gerarRelatorioPedido(codPedido);
+        final Loading loading = new Loading();
+        loading.setVisible(true);
+
+        Thread thread = new Thread() {
+            public void run() {
+                try {
+                    int linha = tbVenda.getSelectedRow();
+                    int codPedido = (int) tbVenda.getValueAt(linha, 0);
+                    controllerVenda.gerarRelatorioPedido(codPedido);
+                    loading.dispose();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Código inválido ou nenhum registro selecionado.", "ERRO", JOptionPane.ERROR_MESSAGE);
+                    loading.dispose();
+                }
+            }
+        };
+        thread.start();
+
     }//GEN-LAST:event_btnPedidosVendaActionPerformed
 
     /**
@@ -917,38 +924,38 @@ public class ViewVenda extends javax.swing.JFrame {
     private void somarValorTotalProdutos() {
         double soma = 0, valor;
         int cont = this.tbVendaProduto.getRowCount();
-        
-            for (int i = 0; i < cont; i++) {
-                valor = (double) this.tbVendaProduto.getValueAt(i, 4);
-                soma = soma + valor;
-            }
-            this.txtTotalVenda.setText(String.valueOf(soma).format("%.2f", soma));
-        
+
+        for (int i = 0; i < cont; i++) {
+            valor = (double) this.tbVendaProduto.getValueAt(i, 4);
+            soma = soma + valor;
+        }
+        this.txtTotalVenda.setText(String.valueOf(soma).format("%.2f", soma));
+
         this.aplicarDesconto();
         this.somaValorTotalConsulta();
     }
-    
-    private void somaValorTotalDesconto(){
+
+    private void somaValorTotalDesconto() {
         double total, desconto;
         int linha = this.tbVenda.getSelectedRow();
         total = (double) this.tbVenda.getValueAt(linha, 4);
         desconto = (double) this.tbVenda.getValueAt(linha, 3);
-        
+
         this.txtTotalVenda.setText(String.valueOf(total).format("%.2f", total));
         this.txtDescontoVenda.setText(String.valueOf(desconto).format("%.2f", desconto));
-        
+
     }
-    
-    private void somaValorTotalConsulta(){
-         double soma = 0, valor;
+
+    private void somaValorTotalConsulta() {
+        double soma = 0, valor;
         int cont = this.tbVenda.getRowCount();
-        
-            for (int i = 0; i < cont; i++) {
-                valor = (double) this.tbVenda.getValueAt(i, 4);
-                soma = soma + valor;
-            }
-            this.txtTotalConsulta.setText(String.valueOf(soma).format("%.2f", soma));
-        
+
+        for (int i = 0; i < cont; i++) {
+            valor = (double) this.tbVenda.getValueAt(i, 4);
+            soma = soma + valor;
+        }
+        this.txtTotalConsulta.setText(String.valueOf(soma).format("%.2f", soma));
+
     }
 
     private void carregarVendas() {
@@ -997,7 +1004,6 @@ public class ViewVenda extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanelCadastro;
     private javax.swing.JPanel jPanelConsulta;
