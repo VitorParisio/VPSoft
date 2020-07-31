@@ -83,6 +83,7 @@ public class ViewVenda extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
         jPanelVenda = new javax.swing.JTabbedPane();
         jPanelCadastro = new javax.swing.JPanel();
         txtCodClienteVenda = new javax.swing.JTextField();
@@ -118,6 +119,9 @@ public class ViewVenda extends javax.swing.JFrame {
         vendaPDF = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         txtTotalConsulta = new javax.swing.JTextField();
+        btnPedidosVenda = new javax.swing.JButton();
+
+        jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("VPSoft - Venda");
@@ -441,6 +445,14 @@ public class ViewVenda extends javax.swing.JFrame {
         txtTotalConsulta.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtTotalConsulta.setEnabled(false);
 
+        btnPedidosVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pdf20.png"))); // NOI18N
+        btnPedidosVenda.setText("Pedidos");
+        btnPedidosVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPedidosVendaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelConsultaLayout = new javax.swing.GroupLayout(jPanelConsulta);
         jPanelConsulta.setLayout(jPanelConsultaLayout);
         jPanelConsultaLayout.setHorizontalGroup(
@@ -461,7 +473,8 @@ public class ViewVenda extends javax.swing.JFrame {
                         .addComponent(btnEditarVenda)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(vendaPDF)
-                        .addGap(97, 97, 97))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnPedidosVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelConsultaLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -477,20 +490,21 @@ public class ViewVenda extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(txtSearchVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearchVenda))
+                    .addComponent(btnSearchVenda)
+                    .addComponent(txtSearchVenda))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTotalConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addGap(13, 13, 13)
                 .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnExcluirVenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnEditarVenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(vendaPDF)))
+                        .addComponent(vendaPDF)
+                        .addComponent(btnPedidosVenda)))
                 .addContainerGap())
         );
 
@@ -806,6 +820,14 @@ public class ViewVenda extends javax.swing.JFrame {
         this.controllerVenda.gerarRelatorioVenda();
     }//GEN-LAST:event_vendaPDFActionPerformed
 
+    private void btnPedidosVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidosVendaActionPerformed
+        // TODO add your handling code here:
+        int linha = this.tbVenda.getSelectedRow();
+        int codPedido = (int) this.tbVenda.getValueAt(linha, 0);
+        
+        this.controllerVenda.gerarRelatorioPedido(codPedido);
+    }//GEN-LAST:event_btnPedidosVendaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -961,10 +983,12 @@ public class ViewVenda extends javax.swing.JFrame {
     private javax.swing.JButton btnEditarVenda;
     private javax.swing.JButton btnExcluirVenda;
     private javax.swing.JButton btnNovo;
+    private javax.swing.JButton btnPedidosVenda;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnSearchVenda;
     private componentes.UJComboBox cbNomeCliente;
     private componentes.UJComboBox cbNomeProduto;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

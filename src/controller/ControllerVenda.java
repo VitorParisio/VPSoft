@@ -60,4 +60,8 @@ public class ControllerVenda {
     public boolean gerarRelatorioVenda() {
        return this.daoVenda.getRelatorioVendaDAO();
     }
+
+    public boolean gerarRelatorioPedido(int codPedido) {
+        return this.daoVenda.getRelatorioPedidoDAO(codPedido);
+    }
 }

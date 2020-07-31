@@ -222,4 +222,61 @@ public class DAOVenda extends Conexao {
             this.fecharConexao();
         }
     }
+
+    public boolean getRelatorioPedidoDAO(int codPedido) {
+        try {
+            this.conectar();
+            this.executarSQL(
+                    "SELECT"
+                    + "     client.id AS client_id,"
+                    + "     client.name AS client_name,"
+                    + "     client.endereco AS client_endereco,"
+                    + "     client.bairro AS client_bairro,"
+                    + "     client.cidade AS client_cidade,"
+                    + "     client.uf AS client_uf,"
+                    + "     client.cep AS client_cep,"
+                    + "     client.fone AS client_fone,"
+                    + "     produto.id AS produto_id,"
+                    + "     produto.name AS produto_name,"
+                    + "     produto.price AS produto_price,"
+                    + "     produto.estoque AS produto_estoque,"
+                    + "     produto.codbarra AS produto_codbarra,"
+                    + "     venda.id AS venda_id,"
+                    + "     venda.id_client AS venda_id_client,"
+                    + "     venda.data_venda AS venda_data_venda,"
+                    + "     venda.valor AS venda_valor,"
+                    + "     venda.total AS venda_total,"
+                    + "     venda.ven_desconto AS venda_ven_desconto,"
+                    + "     venda_produto.id AS venda_produto_id,"
+                    + "     venda_produto.id_produto AS venda_produto_id_produto,"
+                    + "     venda_produto.id_venda AS venda_produto_id_venda,"
+                    + "     venda_produto.ven_pro_valor AS venda_produto_ven_pro_valor,"
+                    + "     venda_produto.ven_pro_qtd AS venda_produto_ven_pro_qtd"
+                    + " FROM"
+                    + "     client client INNER JOIN venda venda ON client.id = venda.id_client"
+                    + "     INNER JOIN venda_produto venda_produto ON venda.id = venda_produto.id_venda"
+                    + "     INNER JOIN produto produto ON venda_produto.id_produto = produto.id"
+                    + " WHERE venda.id = '" + codPedido + "';"
+            );
+            JRResultSetDataSource JrRs = new JRResultSetDataSource(getResultSet());
+            InputStream caminhoRelatorio = this.getClass().getClassLoader().getResourceAsStream("relpedido/relpedido.jasper");
+            JasperPrint jasperPrint = JasperFillManager.fillReport(caminhoRelatorio, new HashMap(), JrRs);
+            JasperExportManager.exportReportToPdfFile(jasperPrint, "C:/Users/Vitor/Documents/NetBeansProjects/VPSoft/rel/relpedido.pdf");
+            File file = new File("C:/Users/Vitor/Documents/NetBeansProjects/VPSoft/rel/relpedido.pdf");
+
+            try {
+                Desktop.getDesktop().open(file);
+            } catch (Exception e) {
+                JOptionPane.showConfirmDialog(null, e);
+            }
+            file.deleteOnExit();
+
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            this.fecharConexao();
+        }
+    }
 }

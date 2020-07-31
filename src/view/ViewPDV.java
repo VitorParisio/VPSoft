@@ -103,6 +103,7 @@ public class ViewPDV extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("VPSoft - PDV");
         setBackground(new java.awt.Color(153, 153, 255));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 255));
 
