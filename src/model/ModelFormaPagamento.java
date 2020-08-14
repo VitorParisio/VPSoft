@@ -6,10 +6,9 @@ package model;
 public class ModelFormaPagamento {
 
     private int id;
+    private int id_venda;
     private String descricao;
-    private float desconto;
     private int parcelas;
-    private int situacao;
 
     /**
     * Construtor
@@ -44,18 +43,12 @@ public class ModelFormaPagamento {
         return this.descricao;
     }
 
-    /**
-    * seta o valor de desconto
-    * @param pDesconto
-    */
-    public void setDesconto(float pDesconto){
-        this.desconto = pDesconto;
+    public int getId_venda() {
+        return id_venda;
     }
-    /**
-    * @return desconto
-    */
-    public float getDesconto(){
-        return this.desconto;
+
+    public void setId_venda(int id_venda) {
+        this.id_venda = id_venda;
     }
 
     /**
@@ -72,22 +65,8 @@ public class ModelFormaPagamento {
         return this.parcelas;
     }
 
-    /**
-    * seta o valor de situacao
-    * @param pSituacao
-    */
-    public void setSituacao(int pSituacao){
-        this.situacao = pSituacao;
-    }
-    /**
-    * @return situacao
-    */
-    public int getSituacao(){
-        return this.situacao;
-    }
-
     @Override
     public String toString(){
-        return "ModelFormaPagamento {" + "::id = " + this.id + "::descricao = " + this.descricao + "::desconto = " + this.desconto + "::parcelas = " + this.parcelas + "::situacao = " + this.situacao +  "}";
+        return "ModelFormaPagamento {" + "::id = " + this.id + "::id_venda = " + this.id_venda+ "::descricao = " + this.descricao + "::parcelas = " + this.parcelas +"}";
     }
 }

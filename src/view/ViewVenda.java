@@ -482,10 +482,12 @@ public class ViewVenda extends javax.swing.JFrame {
             jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelConsultaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnSearchVenda)
-                    .addComponent(txtSearchVenda))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanelConsultaLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(txtSearchVenda)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel10)
@@ -494,9 +496,9 @@ public class ViewVenda extends javax.swing.JFrame {
                 .addGap(13, 13, 13)
                 .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnExcluirVenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPedidosVenda)
                     .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnEditarVenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnPedidosVenda)
                         .addComponent(vendaPDF)))
                 .addContainerGap())
         );
@@ -533,6 +535,7 @@ public class ViewVenda extends javax.swing.JFrame {
         // TODO add your handling code here:
         int codVenda = 0, codProduto = 0;
         double desconto = 0;
+       
         this.listaModelVendaProduto = new ArrayList<>();
 
         if (this.txtDescontoVenda.getText().equals("")) {
@@ -961,8 +964,8 @@ public class ViewVenda extends javax.swing.JFrame {
     private void carregarVendas() {
         DefaultTableModel modelo = (DefaultTableModel) this.tbVenda.getModel();
         this.listaModelVendasCliente = this.controllerVendasCliente.getListaVendasClienteController();
-
         int cont = this.listaModelVendasCliente.size();
+       
         modelo.setNumRows(0);
 
         for (int i = 0; i < cont; i++) {
@@ -972,7 +975,7 @@ public class ViewVenda extends javax.swing.JFrame {
                 this.listaModelVendasCliente.get(i).getModelVendas().getTotal(),
                 this.listaModelVendasCliente.get(i).getModelVendas().getVenDesconto(),
                 this.listaModelVendasCliente.get(i).getModelVendas().getValor(),
-                this.listaModelVendasCliente.get(i).getModelVendas().getDataVenda()
+                this.listaModelVendasCliente.get(i).getModelVendas().getDataVenda(),
             });
         }
     }

@@ -5,15 +5,30 @@
  */
 package view;
 
+import controller.ControllerFormaPagamento;
 import controller.ControllerVenda;
 import controller.ControllerVendaProduto;
 import controller.ProdutoController;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.print.DocFlavor;
+import javax.print.DocPrintJob;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.print.SimpleDoc;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.attribute.standard.JobName;
+import javax.print.attribute.standard.MediaSizeName;
+import javax.print.attribute.standard.OrientationRequested;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.ModelFormaPagamento;
 import model.ModelProduto;
 import model.ModelSessionUser;
 import model.ModelVenda;
@@ -28,8 +43,8 @@ import util.BLDatas;
 public class ViewPDV extends javax.swing.JFrame {
 
     private ViewPagamentoPDV viewPagamentoPDV;
-
     int qtd;
+    
     ModelProduto modelProduto = new ModelProduto();
     ProdutoController controllerProduto = new ProdutoController();
     ArrayList<ModelProduto> listaModelProduto = new ArrayList<>();
@@ -42,6 +57,9 @@ public class ViewPDV extends javax.swing.JFrame {
     ArrayList<ModelVendaProduto> listaModelVendaProduto = new ArrayList<>();
 
     ModelSessionUser modelSessionUser = new ModelSessionUser();
+    
+    ModelFormaPagamento modelFormaPagamento = new ModelFormaPagamento();
+    ControllerFormaPagamento controllerFormaPagamento = new ControllerFormaPagamento();
 
     BLDatas bLDatas = new BLDatas();
 
@@ -236,6 +254,7 @@ public class ViewPDV extends javax.swing.JFrame {
         jOpPDV.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jOpPDV.setText("jLabel4");
 
+        cbProdutoSearch.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         cbProdutoSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 cbProdutoSearchKeyReleased(evt);
@@ -292,7 +311,7 @@ public class ViewPDV extends javax.swing.JFrame {
         );
 
         tbPDV.setBackground(new java.awt.Color(153, 153, 255));
-        tbPDV.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tbPDV.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tbPDV.setForeground(new java.awt.Color(255, 255, 255));
         tbPDV.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -504,6 +523,7 @@ public class ViewPDV extends javax.swing.JFrame {
         int cont, codProduto = 0, codVenda = 0;
 
         this.modelVenda = new ModelVenda();
+        this.modelFormaPagamento = new ModelFormaPagamento();
         this.modelVenda.setIdClient(50);
         try {
             this.modelVenda.setDataVenda(bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
@@ -515,13 +535,19 @@ public class ViewPDV extends javax.swing.JFrame {
         this.modelVenda.setValor(Double.parseDouble(String.valueOf(this.viewPagamentoPDV.getValorTotal()).replaceAll(",", ".")));
         cont = this.tbPDV.getRowCount();
         codVenda = this.controllerVenda.salvarVendaController(this.modelVenda);
+        this.modelFormaPagamento.setId_venda(codVenda);
+        this.modelFormaPagamento.setDescricao(this.viewPagamentoPDV.getFormaPagamento());
+        this.modelFormaPagamento.setParcelas(2);
+        this.controllerFormaPagamento.salvarFormaPagamentoController(this.modelFormaPagamento);
         for (int i = 0; i < cont; i++) {
             codProduto = (int) this.tbPDV.getValueAt(i, 1);
             this.modelVendaProduto = new ModelVendaProduto();
             this.modelProduto = new ModelProduto();
+            
             this.modelVendaProduto.setIdProduto(codProduto);
             this.modelVendaProduto.setIdVenda(codVenda);
             this.modelVendaProduto.setVenProValor((double) this.tbPDV.getValueAt(i, 4));
+            this.modelVendaProduto.setNomeProduto(this.tbPDV.getValueAt(i, 2).toString());
             this.modelVendaProduto.setVenProQtd(Integer.parseInt(this.tbPDV.getValueAt(i, 3).toString()));
 
             this.modelProduto.setId(codProduto);
@@ -534,11 +560,79 @@ public class ViewPDV extends javax.swing.JFrame {
         if (this.controllerVendaProduto.salvarVendaProdutoController(this.listaModelVendaProduto)) {
             this.controllerProduto.alterarEstoqueProdutoController(this.listaModelProduto);
             this.jTitleProdutoPDV.setText("OBRIGADO E VOLTE SEMPRE! :)");
-            JOptionPane.showMessageDialog(this, "Venda realizada com sucesso!");
+            this.imprimirCupom(this.listaModelVendaProduto, this.modelVenda);
             this.jTitleProdutoPDV.setText("CAIXAR LIVRE");
             this.limparCampo();
         } else {
             JOptionPane.showMessageDialog(this, "Erro ao adicionar produtos na venda!", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void imprimirCupom(ArrayList<ModelVendaProduto> listaModelVendaProduto, ModelVenda modelVenda) {
+
+        String data, hora;
+        String dataF = "dd/MM/yyyy";
+        String horaF = "H:mm - a";
+        java.util.Date tempoAtual = new java.util.Date();
+        //Pega a data
+        SimpleDateFormat formata = new SimpleDateFormat(dataF);
+        data = formata.format(tempoAtual);
+        //Pega a hora
+        formata = new SimpleDateFormat(horaF);
+        hora = formata.format(tempoAtual);
+
+        String conteudoImprimi = "";
+
+        for (int i = 0; i < this.listaModelVendaProduto.size(); i++) {
+            conteudoImprimi += 
+                    + this.listaModelVendaProduto.get(i).getVenProQtd() + " "
+                    + this.listaModelVendaProduto.get(i).getVenProValor() + " "
+                    + this.listaModelVendaProduto.get(i).getNomeProduto() + "\n\r";
+        }
+
+        this.imprimir("VPSoft - Sistema de vendas \n\r"
+                + "Rua Artur Pernambuco de Almeida, \n\r"
+                + " CNPJ: 00.000.000/0001-00\n\r"
+                + "----------------------------------\n\r"
+                + "       CUPOM NÃO FISCAL           \n\r"
+                + "----------------------------------\n\r"
+                + "QTD   PRECO   DESCRIÇÃO\n\r"
+                + conteudoImprimi + ""
+                + "----------------------------------\n\r"
+                + "SUBTOTAL: " + this.modelVenda.getTotal() + "\n\r"
+                + "DESCONTO: " + this.modelVenda.getVenDesconto() + "\n\r"
+                + "TOTAL: " + this.modelVenda.getValor() + "\n\r"
+                + "----------------------------------\n\r"
+                + data + " - " + hora + "\n\r"
+                + "\n\r \n\r"
+                + "     OBRIGADO E VOLTE SEMPRE! :)    \n\r"
+                + " \n\r\n\r\f"
+        );
+    }
+
+    public void imprimir(String pTexto) {
+        try {
+            InputStream prin = new ByteArrayInputStream(pTexto.getBytes());
+            DocFlavor docFlavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
+            SimpleDoc documentoTexto = new SimpleDoc(prin, docFlavor, null);
+            PrintService impressora = PrintServiceLookup.lookupDefaultPrintService();
+            //Pegar a impressora padrão
+            PrintRequestAttributeSet printerAttributes = new HashPrintRequestAttributeSet();
+            printerAttributes.add(new JobName("impressao", null));
+            printerAttributes.add(OrientationRequested.PORTRAIT);
+            printerAttributes.add(MediaSizeName.ISO_A4);
+
+            //Informa o tipo da folha
+            DocPrintJob printJob = impressora.createPrintJob();
+
+            try {
+                printJob.print(documentoTexto, (PrintRequestAttributeSet) printerAttributes);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Não foi possível realizar a impressão!", "ERRO", JOptionPane.ERROR_MESSAGE);
+            }
+
+            prin.close();
+        } catch (Exception e) {
         }
     }
 
@@ -690,4 +784,5 @@ public class ViewPDV extends javax.swing.JFrame {
     private javax.swing.JTextField txtBarraCod;
     private javax.swing.JTextField txtSubTotalPDV;
     // End of variables declaration//GEN-END:variables
+
 }

@@ -10,6 +10,7 @@ public class ModelVendaProduto {
     private int idVenda;
     private double venProValor;
     private int venProQtd;
+    private String nomeProduto;
 
     /**
     * Construtor
@@ -85,9 +86,17 @@ public class ModelVendaProduto {
     public int getVenProQtd(){
         return this.venProQtd;
     }
+    
+     public String getNomeProduto() {
+        return nomeProduto;
+    }
+
+    public void setNomeProduto(String nomeProduto) {
+        this.nomeProduto = nomeProduto;
+    }
 
     @Override
     public String toString(){
-        return "ModelVendaProduto {" + "::id = " + this.id + "::idProduto = " + this.idProduto + "::idVenda = " + this.idVenda + "::venProValor = " + this.venProValor + "::venProQtd = " + this.venProQtd +  "}";
+        return "ModelVendaProduto {" + "::id = " + this.id + "::idProduto = " + this.idProduto + "::idVenda = " + this.idVenda + "::venProValor = " + this.venProValor + "::venProQtd = " + this.venProQtd +  "::nomeProduto = " + this.nomeProduto+"}";
     }
 }

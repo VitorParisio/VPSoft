@@ -112,11 +112,11 @@ public class BLDatas {
      * @return Date Objeto Date ou null caso receba uma String vazia ou nula 
      * @throws Exception Caso a String esteja no formato errado 
      */  
-    public java.sql.Date converterDataStringParaDate(String data) throws Exception {   
+    public java.util.Date converterDataStringParaDate(String data) throws Exception {   
         if (data == null || data.equals(""))  
             return null;  
           
-        java.sql.Date date = null;  
+        java.util.Date date = null;  
         try {  
             DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
             date = new java.sql.Date( ((java.util.Date)formatter.parse(data)).getTime() );  
